@@ -1,29 +1,16 @@
-# New Project
+## Primitives for Data visualisation in Svelte
 
-> ✨ Bootstrapped with Create Snowpack App (CSA).
+### Very Work in progress
 
-## Available Scripts
+### Roadmap
 
-### npm start
-
-Runs the app in the development mode.
-Open http://localhost:8080 to view it in the browser.
-
-The page will reload if you make edits.
-You will also see any lint errors in the console.
-
-### npm test
-
-Launches the test runner in the interactive watch mode.
-See the section about running tests for more information.
-
-### npm run build
-
-Builds a static copy of your site to the `build/` folder.
-Your app is ready to be deployed!
-
-**For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/snowpackjs/snowpack/tree/main/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.json` config file.
-
-### Q: What about Eject?
-
-No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
+* `ColumnFrame` and `GridFrame`
+* Implement as many non-geo viz from Data Viz Handbook as possible
+* Operators for `Scene` (`split`, `inset`, `stack` ... ) 
+* `ResponsiveScene` should handle `left` / `right` / `top` / `bottom` props
+* Clean up handling context in `Scene` components (Wrapper ?)
+* Fix types for `deepMap`
+* Implement some very basic Guides
+* `AnimatedFrame`s where values are represented as `spring`s
+* `Frame` for layouts like Marimeko or Treemap
+* Explore `selection` ideas from vega 
