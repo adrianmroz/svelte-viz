@@ -3,6 +3,7 @@
   import BarChart from './views/BarChart.svelte';
   import ScatterPlot from './views/ScatterPlot.svelte';
   import LineChart from './views/LineChart.svelte';
+  import DumbbellPlot from './views/DumbbelPlot.svelte';
 
   let url = "";
 </script>
@@ -19,11 +20,15 @@
     <Route path="scatterplot">
       <ScatterPlot/>
     </Route>
+    <Route path="dumbbelplot">
+      <DumbbellPlot/>
+    </Route>
   </div>
   <nav>
     <Link to="line-chart">Line Chart</Link>
     <Link to="bar-chart">Bar Chart</Link>
-    <Link to="scatterplot">Scatterplot</Link>
+    <Link to="scatterplot">Scatter Plot</Link>
+    <Link to="dumbbelplot">Dumbbell Plot</Link>
   </nav>
 </Router>
 

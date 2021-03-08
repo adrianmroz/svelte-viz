@@ -5,6 +5,7 @@
   import type { Unary } from "../utils/function-types";
   import type { Scene } from "../scene/scene";
   import { getScene } from "../scene/context";
+  import { deepMap } from "../utils/deep-map";
 
   export let data: Datum[];
 
@@ -31,13 +32,14 @@
     height: appliedRowScale.bandwidth(),
     top: appliedRowScale(getRowValue(datum))
   })
+  $: x = datum => deepMap(getValue(datum), appliedValueScale);
 </script>
 
 {#each data as datum, idx}
   <slot
     key={getRowValue(datum)}
     datum={datum}
-    x={appliedValueScale(getValue(datum))}
+    x={x(datum)}
     scene={calcScene(datum)}
   />
 {/each}
