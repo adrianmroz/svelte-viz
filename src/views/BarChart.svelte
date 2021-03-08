@@ -1,0 +1,45 @@
+<script lang="ts">
+  import type { MedalRow } from "../data/medals";
+  import { medals } from "../data/medals";
+  import { extent } from "d3-array";
+  import RowFrame from '../lib/frame/RowFrame.svelte';
+  import { scaleBand } from "d3-scale";
+  import GroupScene from '../lib/scene/GroupScene.svelte';
+  import SvgResponsiveScene from '../lib/scene/SvgResponsiveScene.svelte';
+  import Bar from '../lib/mark/Bar.svelte';
+
+  const data = medals.slice(0, 12);
+
+  const name = (d: MedalRow) => d.country;
+  const gold = (d: MedalRow) => d.gold;
+
+  const rowDomain = data.map(name);
+  const valueDomain = extent(data, gold);
+
+  const rowScale = scaleBand().padding(0.2);
+</script>
+
+<SvgResponsiveScene>
+  <RowFrame
+    {data}
+    {rowDomain}
+    {valueDomain}
+    getRowValue={name}
+    getValue={gold}
+    {rowScale}
+
+    let:x={value}
+    let:scene={scene}
+    let:datum={datum}
+  >
+    <GroupScene scene={scene}>
+      <Bar width={value} height={scene.height} />
+      <text
+        alignment-baseline="middle"
+        x={value + 2}
+        y={scene.height / 2}>
+        {datum.country}: {datum.gold}
+      </text>
+    </GroupScene>
+  </RowFrame>
+</SvgResponsiveScene>
