@@ -33,9 +33,9 @@
     getY={hp}
     yDomain={hpExtent}
 
-    let:datum={datum}
-    let:x={x}
-    let:y={y}
+    let:datum
+    let:x
+    let:y
   >
     <Point {x} {y} color={colorScale(origin(datum))}/>
   </XYFrame>

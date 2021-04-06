@@ -30,16 +30,16 @@
 
     {rowScale}
 
-    let:x={x}
-    let:scene={scene}
-    let:datum={datum}
+    let:x={{gold, silver}}
+    let:scene
+    let:datum
   >
-    <GroupScene scene={scene}>
+    <GroupScene {scene}>
       <Dumbbell
         y1={scene.height / 2}
         y2={scene.height / 2}
-        x1={x.gold}
-        x2={x.silver}
+        x1={gold}
+        x2={silver}
       />
     </GroupScene>
   </RowFrame>

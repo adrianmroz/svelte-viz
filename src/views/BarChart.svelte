@@ -28,15 +28,15 @@
     getValue={gold}
     {rowScale}
 
-    let:x={value}
-    let:scene={scene}
-    let:datum={datum}
+    let:x
+    let:scene
+    let:datum
   >
-    <GroupScene scene={scene}>
-      <Bar width={value} height={scene.height} />
+    <GroupScene {scene}>
+      <Bar width={x} height={scene.height} />
       <text
         alignment-baseline="middle"
-        x={value + 2}
+        x={x + 2}
         y={scene.height / 2}>
         {datum.country}: {datum.gold}
       </text>

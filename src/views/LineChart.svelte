@@ -34,7 +34,7 @@
 
     let:x={xs}
     let:y={ys}
-    let:datum={datum}
+    let:datum
     >
     <Line
       {xs}
