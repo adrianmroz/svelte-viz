@@ -1,39 +1,32 @@
 <script lang="ts">
-  import type { Datum } from "../data/data";
-  import { scaleLinear } from "d3-scale";
-  import type { Binary, Unary } from "../utils/function-types";
-  import { getScene } from "../scene/context";
-  import { deepMap } from "../utils/deep-map";
+	import type { Datum } from '../data/data';
+	import { scaleLinear } from 'd3-scale';
+	import type { Binary, Unary } from '../utils/function-types';
+	import { getScene } from '../scene/context';
+	import { deepMap } from '../utils/deep-map';
 
-  export let data: Datum[];
+	type T = $$Generic;
 
-  export let xScale = scaleLinear();
-  export let xDomain: [number];
-  export let getX: Unary<Datum, unknown>;
+	export let data: T[];
 
-  export let yScale = scaleLinear();
-  export let yDomain: [number, number];
-  export let getY: Unary<Datum, number>;
+	export let xScale = scaleLinear();
+	export let xDomain: [number, number];
+	export let getX: Unary<T, unknown>;
 
-  export let keyFn: Binary<Datum, number, string> =
-    (_, idx) => String(idx);
+	export let yScale = scaleLinear();
+	export let yDomain: [number, number];
+	export let getY: Unary<T, number>;
 
-  const scene$ = getScene();
-  $: appliedYScale
-    = yScale.copy().domain(yDomain).range([$scene$.height, 0]);
-  $: appliedXScale
-    = xScale.copy().domain(xDomain).range([0, $scene$.width]);
+	export let keyFn: Binary<T, number, string> = (_, idx) => String(idx);
 
-  $: x = datum => deepMap(getX(datum), appliedXScale);
-  $: y = datum => deepMap(getY(datum), appliedYScale);
+	const scene$ = getScene();
+	$: appliedYScale = yScale.copy().domain(yDomain).range([$scene$.height, 0]);
+	$: appliedXScale = xScale.copy().domain(xDomain).range([0, $scene$.width]);
 
+	$: x = (datum: T) => deepMap(getX(datum), appliedXScale);
+	$: y = (datum: T) => deepMap(getY(datum), appliedYScale);
 </script>
 
 {#each data as datum, idx}
-  <slot
-    key={keyFn(datum, idx)}
-    datum={datum}
-    x={x(datum)}
-    y={y(datum)}
-    />
+	<slot key={keyFn(datum, idx)} {datum} x={x(datum)} y={y(datum)} />
 {/each}
