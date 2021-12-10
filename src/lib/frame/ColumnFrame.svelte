@@ -1,36 +1,42 @@
 <script lang="ts">
-	import type { Datum } from '../data/data';
 	import type { ScaleBand } from 'd3-scale';
-	import { scaleBand, scaleLinear } from 'd3-scale';
+	import { scaleBand } from 'd3-scale';
 	import type { Unary } from '../utils/function-types';
 	import { getScene } from '../scene/context';
 	import type { Scene } from '../scene/scene';
-	import { deepMap } from '../utils/deep-map';
+	import { Extract, map } from '../utils/map';
+	import type { Scale } from "../utils/scale";
 
-	type T = $$Generic;
+	type Datum = $$Generic;
+	type Column = $$Generic;
+	type Y = $$Generic;
+	type YS = Extract<Y>;
 
-	export let data: T[];
-	export let columnScale: ScaleBand<unknown> = scaleBand<unknown>();
-	export let columnDomain: unknown[];
-	export let getColumnValue: Unary<T, unknown>;
+	export let data: Datum[];
 
-	export let valueScale = scaleLinear();
-	export let valueDomain: [number, number];
-	export let getValue: Unary<T, number>;
+	export let columnScale: ScaleBand<Column> = scaleBand<Column>();
+	export let columnDomain: Column[];
+	export let getColumnValue: Unary<Datum, Column>;
+
+	export let valueScale: Scale<YS, number>;
+	export let valueDomain: readonly [YS, YS];
+	export let getValue: Unary<Datum, Y>;
 
 	const scene$ = getScene();
 
-	$: appliedColumnScale = columnScale.copy().domain(columnDomain).range([0, $scene$.width]);
-	$: appliedValueScale = valueScale.copy().domain(valueDomain).range([$scene$.height, 0]);
-	$: calcScene = (datum: T): Scene => ({
+	$: innerColumnScale = columnScale.copy();
+	$: innerValueScale = valueScale.copy();
+	$: appliedColumnScale = innerColumnScale.domain(columnDomain).range([0, $scene$.width]);
+	$: appliedValueScale = innerValueScale.domain(valueDomain).range([$scene$.height, 0]);
+	$: calcScene = (datum: Datum): Scene => ({
 		top: 0,
 		left: appliedColumnScale(getColumnValue(datum)),
 		height: $scene$.height,
 		width: appliedColumnScale.bandwidth()
 	});
-	$: y = (datum: T) => deepMap(getValue(datum), appliedValueScale);
+	$: y = (datum: Datum) => map(getValue(datum), appliedValueScale);
 </script>
 
-{#each data as datum, idx}
+{#each data as datum}
 	<slot key={getColumnValue(datum)} scene={calcScene(datum)} {datum} y={y(datum)} />
 {/each}

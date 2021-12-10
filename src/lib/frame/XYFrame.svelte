@@ -1,32 +1,43 @@
 <script lang="ts">
-	import type { Datum } from '../data/data';
-	import { scaleLinear } from 'd3-scale';
 	import type { Binary, Unary } from '../utils/function-types';
 	import { getScene } from '../scene/context';
-	import { deepMap } from '../utils/deep-map';
+	import type { Extract, ExtractValuesAs } from '../utils/map';
+	import { map } from '../utils/map';
+	import type { Scale } from "../utils/scale";
 
-	type T = $$Generic;
+	type Datum = $$Generic;
+	type X = $$Generic;
+	type XS = Extract<X>;
+	type Y = $$Generic;
+	type YS = Extract<Y>;
 
-	export let data: T[];
+	export let data: Datum[];
 
-	export let xScale = scaleLinear();
-	export let xDomain: [number, number];
-	export let getX: Unary<T, unknown>;
+	export let xScale: Scale<XS, number>;
+	export let xDomain: readonly [XS, XS];
+	export let getX: Unary<Datum, X>;
 
-	export let yScale = scaleLinear();
-	export let yDomain: [number, number];
-	export let getY: Unary<T, number>;
+	export let yScale: Scale<YS, number>;
+	export let yDomain: readonly [YS, YS];
+	export let getY: Unary<Datum, Y>;
 
-	export let keyFn: Binary<T, number, string> = (_, idx) => String(idx);
+	export let keyFn: Binary<Datum, number, string> = (_, idx) => String(idx);
 
 	const scene$ = getScene();
-	$: appliedYScale = yScale.copy().domain(yDomain).range([$scene$.height, 0]);
-	$: appliedXScale = xScale.copy().domain(xDomain).range([0, $scene$.width]);
+	$: innerYScale = yScale.copy();
+	$: innerXScale = xScale.copy();
+	$: appliedYScale = innerYScale.domain(yDomain).range([$scene$.height, 0]);
+	$: appliedXScale = innerXScale.domain(xDomain).range([0, $scene$.width]);
 
-	$: x = (datum: T) => deepMap(getX(datum), appliedXScale);
-	$: y = (datum: T) => deepMap(getY(datum), appliedYScale);
+	let x: Unary<Datum, ExtractValuesAs<X, number>>;
+	let y: Unary<Datum, ExtractValuesAs<Y, number>>;
+	$: x = (datum: Datum) => map<X, number>(getX(datum), appliedXScale);
+	$: y = (datum: Datum) => map<Y, number>(getY(datum), appliedYScale);
 </script>
 
 {#each data as datum, idx}
-	<slot key={keyFn(datum, idx)} {datum} x={x(datum)} y={y(datum)} />
+	<slot key={keyFn(datum, idx)}
+				{datum}
+				x={x(datum)}
+				y={y(datum)} />
 {/each}

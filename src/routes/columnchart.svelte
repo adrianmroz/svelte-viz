@@ -6,7 +6,7 @@
 	import ColumnFrame from '$lib/frame/ColumnFrame.svelte';
 	import GroupScene from '$lib/scene/GroupScene.svelte';
 	import Bar from '$lib/mark/Bar.svelte';
-	import { scaleBand } from 'd3-scale';
+	import { scaleBand, scaleLinear } from 'd3-scale';
 
 	const data = medals.slice(0, 15);
 
@@ -24,6 +24,7 @@
 		{data}
 		{columnDomain}
 		{valueDomain}
+		valueScale={scaleLinear()}
 		getColumnValue={name}
 		getValue={silver}
 		{columnScale}

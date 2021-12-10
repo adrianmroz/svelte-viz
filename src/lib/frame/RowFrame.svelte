@@ -1,37 +1,42 @@
 <script lang="ts">
 	import type { ScaleBand } from 'd3-scale';
-	import { scaleBand, scaleLinear } from 'd3-scale';
-	import type { Datum } from '../data/data';
+	import { scaleBand } from 'd3-scale';
 	import type { Unary } from '../utils/function-types';
 	import type { Scene } from '../scene/scene';
 	import { getScene } from '../scene/context';
-	import { deepMap } from '../utils/deep-map';
+	import { Extract, ExtractValuesAs, map } from '../utils/map';
+	import type { Scale } from "../utils/scale";
 
-	type T = $$Generic;
+	type Datum = $$Generic;
+	type Row = $$Generic;
+	type X = $$Generic;
+	type XS = Extract<X>;
 
-	export let data: T[];
+	export let data: Datum[];
 
-	export let rowScale: ScaleBand<unknown> = scaleBand<unknown>();
-	export let rowDomain: unknown[];
-	export let getRowValue: Unary<T, unknown>;
+	export let rowScale: ScaleBand<Row> = scaleBand<Row>();
+	export let rowDomain: Row[];
+	export let getRowValue: Unary<Datum, Row>;
 
-	export let valueScale = scaleLinear();
-	export let valueDomain: [number, number];
-	export let getValue: Unary<T, number>;
+	export let valueScale: Scale<XS, number>;
+	export let valueDomain: readonly [XS, XS];
+	export let getValue: Unary<Datum, X>;
 
 	const scene$ = getScene();
 
-	$: appliedRowScale = rowScale.copy().domain(rowDomain).range([$scene$.height, 0]);
-	$: appliedValueScale = valueScale.copy().domain(valueDomain).range([0, $scene$.width]);
-	$: calcScene = (datum: T): Scene => ({
+	$: innerRowScale = rowScale.copy();
+	$: innerValueScale = valueScale.copy();
+	$: appliedRowScale = innerRowScale.domain(rowDomain).range([$scene$.height, 0]);
+	$: appliedValueScale = innerValueScale.domain(valueDomain).range([0, $scene$.width]);
+	$: calcScene = (datum: Datum): Scene => ({
 		left: 0,
 		width: $scene$.width,
 		height: appliedRowScale.bandwidth(),
 		top: appliedRowScale(getRowValue(datum))
 	});
-	$: x = (datum: T) => deepMap(getValue(datum), appliedValueScale);
+	$: x = (datum: Datum): ExtractValuesAs<X, number> => map(getValue(datum), appliedValueScale);
 </script>
 
-{#each data as datum, idx}
+{#each data as datum}
 	<slot key={getRowValue(datum)} {datum} x={x(datum)} scene={calcScene(datum)} />
 {/each}

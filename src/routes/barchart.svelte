@@ -3,7 +3,7 @@
 	import { medals } from '$lib/data/medals';
 	import { extent } from 'd3-array';
 	import RowFrame from '$lib/frame/RowFrame.svelte';
-	import { scaleBand } from 'd3-scale';
+	import { scaleBand, scaleLinear } from 'd3-scale';
 	import GroupScene from '$lib/scene/GroupScene.svelte';
 	import SvgResponsiveScene from '$lib/scene/SvgResponsiveScene.svelte';
 	import Bar from '$lib/mark/Bar.svelte';
@@ -24,6 +24,7 @@
 		{data}
 		{rowDomain}
 		{valueDomain}
+		valueScale={scaleLinear()}
 		getRowValue={name}
 		getValue={gold}
 		{rowScale}

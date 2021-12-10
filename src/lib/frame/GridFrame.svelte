@@ -7,22 +7,26 @@
 	import type { Scene } from '../scene/scene';
 
 	type Datum = $$Generic;
+	type Column = $$Generic;
+	type Row = $$Generic;
 
 	export let data: Datum[];
 	export let keyFn: Binary<Datum, number, string> = (_, idx) => String(idx);
 
-	export let columnScale: ScaleBand<unknown> = scaleBand<unknown>();
-	export let columnDomain: unknown[];
-	export let getColumnValue: Unary<Datum, unknown>;
+	export let columnScale: ScaleBand<Column> = scaleBand<Column>();
+	export let columnDomain: Column[];
+	export let getColumnValue: Unary<Datum, Column>;
 
-	export let rowScale: ScaleBand<unknown> = scaleBand<unknown>();
-	export let rowDomain: unknown[];
-	export let getRowValue: Unary<Datum, unknown>;
+	export let rowScale: ScaleBand<Row> = scaleBand<Row>();
+	export let rowDomain: Row[];
+	export let getRowValue: Unary<Datum, Row>;
 
 	const scene$ = getScene();
 
-	$: appliedRowScale = rowScale.copy().domain(rowDomain).range([$scene$.height, 0]);
-	$: appliedColumnScale = columnScale.copy().domain(columnDomain).range([0, $scene$.width]);
+	$: innerColumnScale = columnScale.copy();
+	$: innerRowScale = rowScale.copy();
+	$: appliedRowScale = innerRowScale.domain(rowDomain).range([$scene$.height, 0]);
+	$: appliedColumnScale = innerColumnScale.domain(columnDomain).range([0, $scene$.width]);
 
 	$: calcScene = (datum: Datum): Scene => {
 		return {

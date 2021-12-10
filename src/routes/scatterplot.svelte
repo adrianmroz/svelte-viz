@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { scaleLinear } from 'd3-scale';
 	import { cars } from '$lib/data/cars';
 	import type { Car } from '$lib/data/cars';
 	import SvgResponsiveScene from '$lib/scene/SvgResponsiveScene.svelte';
@@ -27,8 +28,10 @@
 		{data}
 		keyFn={model}
 		getX={mpg}
+		xScale={scaleLinear()}
 		xDomain={mpgExtent}
 		getY={hp}
+		yScale={scaleLinear()}
 		yDomain={hpExtent}
 		let:datum
 		let:x

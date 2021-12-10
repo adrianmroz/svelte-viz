@@ -8,7 +8,7 @@
   export let color: Property.Stroke = "steelblue";
   export let width: Property.StrokeWidth = "1";
 
-  const generator = line<[number, number]>();
+  const generator = line<number[]>();
 
   $: d = generator(zip(xs, ys));
 </script>
