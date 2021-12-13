@@ -1,4 +1,4 @@
-<h1>Svelte Viz => SViz</h1>
+<h1>Svelte Viz</h1>
 
 <ul>
 	<li><a href="scatterplot">Scatterplot</a></li>
