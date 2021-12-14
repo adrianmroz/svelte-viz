@@ -1,3 +1,4 @@
+import path from 'path';
 import vercel from '@sveltejs/adapter-vercel';
 import preprocess from 'svelte-preprocess';
 
@@ -11,7 +12,19 @@ const config = {
 		adapter: vercel(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		target: '#svelte',
+
+		package: {
+			exports: file => file === "index.ts"
+		},
+
+		vite: {
+			resolve: {
+				alias: {
+					'svelte-viz': path.resolve('src/lib')
+				}
+			}
+		}
 	}
 };
 
