@@ -1,12 +1,9 @@
 <script lang="ts">
-	import type { MedalRow } from '$lib/data/medals';
-	import { medals } from '$lib/data/medals';
+	import { ColumnFrame, SvgResponsiveScene, GroupScene, Bar } from 'svelte-viz'
 	import { extent } from 'd3-array';
-	import SvgResponsiveScene from '$lib/scene/SvgResponsiveScene.svelte';
-	import ColumnFrame from '$lib/frame/ColumnFrame.svelte';
-	import GroupScene from '$lib/scene/GroupScene.svelte';
-	import Bar from '$lib/mark/Bar.svelte';
 	import { scaleBand, scaleLinear } from 'd3-scale';
+	import type { MedalRow } from '../data/medals';
+	import { medals } from '../data/medals';
 
 	const data = medals.slice(0, 15);
 

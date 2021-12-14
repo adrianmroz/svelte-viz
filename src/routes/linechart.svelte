@@ -1,12 +1,9 @@
 <script lang="ts">
-	import { terminals } from '$lib/data/terminals';
-	import type { Terminal } from '$lib/data/terminals';
-	import SvgResponsiveScene from '$lib/scene/SvgResponsiveScene.svelte';
-	import XYFrame from '$lib/frame/XYFrame.svelte';
+	import { SvgResponsiveScene, XYFrame, Line, asArray } from 'svelte-viz';
 	import { scaleOrdinal, scaleLinear, scaleTime } from 'd3-scale';
-	import Line from '$lib/mark/Line.svelte';
 	import { schemeTableau10 } from 'd3-scale-chromatic';
-	import { asArray } from "../lib/utils/map";
+	import { terminals } from '../data/terminals';
+	import type { Terminal } from '../data/terminals';
 
 	const data = terminals.slice(0, 6);
 

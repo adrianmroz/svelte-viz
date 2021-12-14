@@ -1,12 +1,10 @@
 <script lang="ts">
-	import SvgResponsiveScene from '$lib/scene/SvgResponsiveScene.svelte';
-	import GridFrame from '$lib/frame/GridFrame.svelte';
-	import type { Airport } from '$lib/data/airports';
-	import { airpotrs } from '$lib/data/airports';
-	import Bar from '$lib/mark/Bar.svelte';
+  import { SvgResponsiveScene, GridFrame, Bar } from 'svelte-viz';
 	import { max } from 'd3-array';
 	import { scaleSequential } from 'd3-scale';
 	import { interpolateBlues } from 'd3-scale-chromatic';
+	import type { Airport } from '../data/airports';
+	import { airpotrs } from '../data/airports';
 
 	const data: Airport[] = airpotrs;
 

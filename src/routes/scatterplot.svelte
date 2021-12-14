@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { scaleLinear } from 'd3-scale';
-	import { cars } from '$lib/data/cars';
-	import type { Car } from '$lib/data/cars';
-	import SvgResponsiveScene from '$lib/scene/SvgResponsiveScene.svelte';
-	import XYFrame from '$lib/frame/XYFrame.svelte';
-	import Point from '$lib/mark/Point.svelte';
+	import { cars } from '../data/cars';
+	import type { Car } from '../data/cars';
+	import { Point, SvgResponsiveScene, XYFrame } from 'svelte-viz'
 	import { extent } from 'd3-array';
 	import { scaleOrdinal } from 'd3-scale';
 	import { schemeTableau10 } from 'd3-scale-chromatic';
