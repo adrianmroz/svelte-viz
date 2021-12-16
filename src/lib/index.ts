@@ -7,6 +7,7 @@ export { default as Bar } from './mark/Bar.svelte'
 export { default as Line } from './mark/Line.svelte'
 export { default as Point } from './mark/Point.svelte'
 export { default as Dumbbell } from './mark/Dumbbell.svelte'
+export { default as Area } from './mark/Area.svelte'
 
 export { default as GroupScene } from './scene/GroupScene.svelte'
 export { default as SvgScene } from './scene/SvgScene.svelte'
