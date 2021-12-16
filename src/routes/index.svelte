@@ -7,4 +7,5 @@
 	<li><a href="columnchart">Column Chart</a></li>
 	<li><a href="heatmap">Heatmap</a></li>
 	<li><a href="dumbbelplot">Dumbbel Plot</a></li>
+	<li><a href="areachart">Area Chart</a></li>
 </ul>
