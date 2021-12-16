@@ -10,11 +10,11 @@
   export let width: Property.StrokeWidth = "1";
   export let opacity: Property.Opacity = 0.3;
 
-  const areaGenerator = area()
+  const areaGenerator = area<number[]>()
     .y0(y0)
     .curve(curveLinear);
 
-  const lineGenerator = line()
+  const lineGenerator = line<number[]>()
     .curve(curveLinear);
 
   $: areaD = areaGenerator(zip(xs, ys));
