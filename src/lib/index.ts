@@ -9,8 +9,8 @@ export { default as Point } from './mark/Point.svelte'
 export { default as Dumbbell } from './mark/Dumbbell.svelte'
 export { default as Area } from './mark/Area.svelte'
 
-export { default as GroupScene } from './scene/GroupScene.svelte'
-export { default as SvgScene } from './scene/SvgScene.svelte'
-export { default as SvgResponsiveScene } from './scene/SvgResponsiveScene.svelte'
+export { default as GroupStage } from './scene/GroupStage.svelte'
+export { default as SvgStage } from './scene/SvgStage.svelte'
+export { default as SvgResponsiveStage } from './scene/SvgResponsiveStage.svelte'
 
 export { asArray, asMap } from './utils/map'

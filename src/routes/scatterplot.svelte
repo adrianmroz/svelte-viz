@@ -2,7 +2,7 @@
 	import { scaleLinear } from 'd3-scale';
 	import { cars } from '../data/cars';
 	import type { Car } from '../data/cars';
-	import { Point, SvgResponsiveScene, XYFrame } from 'svelte-viz'
+	import { Point, SvgResponsiveStage, XYFrame } from 'svelte-viz'
 	import { extent } from 'd3-array';
 	import { scaleOrdinal } from 'd3-scale';
 	import { schemeTableau10 } from 'd3-scale-chromatic';
@@ -21,7 +21,7 @@
 	const colorScale = scaleOrdinal(schemeTableau10).domain(['Europe', 'Japan', 'USA']);
 </script>
 
-<SvgResponsiveScene>
+<SvgResponsiveStage>
 	<XYFrame
 		{data}
 		keyFn={model}
@@ -37,4 +37,4 @@
 	>
 		<Point {x} {y} color={colorScale(origin(datum))} />
 	</XYFrame>
-</SvgResponsiveScene>
+</SvgResponsiveStage>

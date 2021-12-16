@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ColumnFrame, SvgResponsiveScene, GroupScene, Bar } from 'svelte-viz'
+	import { ColumnFrame, SvgResponsiveStage, GroupStage, Bar } from 'svelte-viz'
 	import { extent } from 'd3-array';
 	import { scaleBand, scaleLinear } from 'd3-scale';
 	import type { MedalRow } from '../data/medals';
@@ -16,7 +16,7 @@
 	const columnScale = scaleBand().padding(0.3);
 </script>
 
-<SvgResponsiveScene>
+<SvgResponsiveStage>
 	<ColumnFrame
 		{data}
 		{columnDomain}
@@ -29,11 +29,11 @@
 		let:scene
 		let:datum
 	>
-		<GroupScene {scene}>
+		<GroupStage {scene}>
 			<Bar {y} height={scene.height - y} width={scene.width} />
 			<text alignment-baseline="hanging" y={Math.min(y + 10, scene.height - 15)} x={10}>
 				{datum.country}: {datum.silver}
 			</text>
-		</GroupScene>
+		</GroupStage>
 	</ColumnFrame>
-</SvgResponsiveScene>
+</SvgResponsiveStage>

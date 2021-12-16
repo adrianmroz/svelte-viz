@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SvgResponsiveScene, GridFrame, Bar } from 'svelte-viz';
+  import { SvgResponsiveStage, GridFrame, Bar } from 'svelte-viz';
 	import { max } from 'd3-array';
 	import { scaleSequential } from 'd3-scale';
 	import { interpolateBlues } from 'd3-scale-chromatic';
@@ -19,7 +19,7 @@
 	const colorScale = scaleSequential([0, maxCount], interpolateBlues);
 </script>
 
-<SvgResponsiveScene>
+<SvgResponsiveStage>
 	<GridFrame
 		{data}
 		{rowDomain}
@@ -37,4 +37,4 @@
 			width={scene.width}
 		/>
 	</GridFrame>
-</SvgResponsiveScene>
+</SvgResponsiveStage>

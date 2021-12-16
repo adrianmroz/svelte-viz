@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SvgResponsiveScene, XYFrame, Line, asArray } from 'svelte-viz';
+	import { SvgResponsiveStage, XYFrame, Line, asArray } from 'svelte-viz';
 	import { scaleOrdinal, scaleLinear, scaleTime } from 'd3-scale';
 	import { schemeTableau10 } from 'd3-scale-chromatic';
 	import { terminals } from '../data/terminals';
@@ -20,7 +20,7 @@
 	const colorScale = scaleOrdinal(schemeTableau10).domain(data.map(name));
 </script>
 
-<SvgResponsiveScene>
+<SvgResponsiveStage>
 	<XYFrame
 		{data}
 		{getX}
@@ -35,4 +35,4 @@
 	>
 		<Line xs={x} ys={y} color={colorScale(name(datum))} />
 	</XYFrame>
-</SvgResponsiveScene>
+</SvgResponsiveStage>
