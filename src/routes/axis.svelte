@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { AxisBottom, AxisLeft, SvgResponsiveStage, GroupStage, XYFrame, Line, asArray } from "svelte-viz";
+  import { LayoutAs, AxisBottom, AxisLeft, SvgResponsiveStage, GroupStage, XYFrame, Line, asArray } from "svelte-viz";
   import { scaleOrdinal, scaleLinear, scaleTime } from "d3-scale";
   import { schemeTableau10 } from "d3-scale-chromatic";
   import { terminals } from "../data/terminals";
   import type { Terminal } from "../data/terminals";
-  import LayoutAs from "../lib/scene/LayoutAs.svelte";
 
   const data = terminals.slice(0, 6);
 

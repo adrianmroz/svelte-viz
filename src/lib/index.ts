@@ -17,3 +17,6 @@ export { default as AxisLeft } from './guides/AxisLeft.svelte'
 export { default as AxisBottom } from './guides/AxisBottom.svelte'
 
 export { asArray, asMap } from './utils/map'
+
+export { default as Layout } from './scene/Layout.svelte'
+export { default as LayoutAs } from './scene/LayoutAs.svelte'
