@@ -35,20 +35,35 @@ function mapRecord<T, R, K extends keyof T>(coll: Record<K, T>, fn: Unary<T, R>)
       Object.assign(o, { [key]: fn(coll[key as K]) }), {} as Record<K, R>);
 }
 
-export function map<T, R>(value: T, fn: Unary<Extract<T>, R>): ExtractValuesAs<T, R>;
-// TODO: fix this unknown
-export function map<T, R>(value: any, fn: Unary<Extract<T>, R>): unknown {
-  if (value.__brand === asMapBrand) return mapRecord(value.value, (v: T) => map(v, fn));
-  if (value.__brand === asArrayBrand) return value.value.map((v: T) => map(v, fn));
-  return fn(value);
+function isMap<T>(o: unknown): o is AsMap<T, PropertyKey> {
+  return (o as AsMap<T, PropertyKey>).__brand === asMapBrand;
 }
 
-export type Extract<T> =
-  T extends AsArray<infer TS> ? Extract<TS> :
-    T extends AsMap<infer TS, infer _> ? Extract<TS> :
-      T;
+function isArray<T>(o: unknown): o is AsArray<T> {
+  return (o as AsArray<T>).__brand === asArrayBrand;
+}
 
-export type ExtractValuesAs<T, R> =
-  T extends AsArray<infer TS> ? Array<ExtractValuesAs<TS, R>> :
-    T extends AsMap<infer TS, infer K> ? Record<K, ExtractValuesAs<TS, R>> :
-      R;
+export type ExtractValueAndReturnTypes<T, R> =
+  T extends AsArray<infer TS> ?
+    { value: ExtractValueAndReturnTypes<TS, R>["value"], return: Array<ExtractValueAndReturnTypes<TS, R>["return"]> } :
+    T extends AsMap<infer TS, infer K> ?
+      { value: ExtractValueAndReturnTypes<TS, R>["value"], return: Record<K, ExtractValueAndReturnTypes<TS, R>["return"]> } :
+      { value: T, return: R }
+
+export function mapper<Input, Output>() {
+  type Types = ExtractValueAndReturnTypes<Input, Output>;
+  type Value = Types["value"];
+  type Return = Types["return"];
+
+  function innerMap<V, O>(v: V, fn: Unary<V, O>) {
+    if (isMap<V>(v)) {
+      return mapRecord(v.value, v => innerMap(v, fn));
+    }
+    if (isArray<V>(v)) return v.value.map(v => innerMap(v, fn));
+    return fn(v);
+  }
+
+  return function(value: Value, fn: Unary<Value, Output>): Return {
+    return innerMap<Value, Output>(value, fn);
+  }
+}

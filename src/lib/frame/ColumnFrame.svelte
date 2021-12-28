@@ -4,13 +4,16 @@
 	import type { Unary } from '../utils/function-types';
 	import { getScene } from '../scene/context';
 	import type { Scene } from '../scene/scene';
-	import { Extract, map } from '../utils/map';
+	import type { ExtractValueAndReturnTypes } from '../utils/map';
+	import { mapper } from '../utils/map';
 	import type { Scale } from "../utils/scale";
 
 	type Datum = $$Generic;
 	type Column = $$Generic;
 	type Y = $$Generic;
-	type YS = Extract<Y>;
+	type YE = ExtractValueAndReturnTypes<Y, number>;
+	type YValue = YE['value'];
+	type YReturn = YE['return'];
 
 	export let data: Datum[];
 
@@ -18,8 +21,8 @@
 	export let columnDomain: Column[];
 	export let getColumnValue: Unary<Datum, Column>;
 
-	export let valueScale: Scale<YS, number>;
-	export let valueDomain: readonly [YS, YS];
+	export let valueScale: Scale<YValue, number>;
+	export let valueDomain: readonly [YValue, YValue];
 	export let getValue: Unary<Datum, Y>;
 
 	const scene$ = getScene();
@@ -34,7 +37,8 @@
 		height: $scene$.height,
 		width: appliedColumnScale.bandwidth()
 	});
-	$: y = (datum: Datum) => map(getValue(datum), appliedValueScale);
+	let y: Unary<Datum, YReturn>;
+	$: y = (datum: Datum) => mapper<Y, number>()(getValue(datum), appliedValueScale);
 </script>
 
 {#each data as datum}
