@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SvgResponsiveStage, XYFrame, Line, asArray } from 'svelte-viz';
+	import { SvgResponsiveStage, XYFrame, Line, asArray, asMap } from "svelte-viz";
 	import { scaleOrdinal, scaleLinear, scaleTime } from 'd3-scale';
 	import { schemeTableau10 } from 'd3-scale-chromatic';
 	import { terminals } from '../data/terminals';
@@ -7,7 +7,7 @@
 
 	const data = terminals.slice(0, 6);
 
-	const getY = (terminal: Terminal) => asArray(terminal.data.map((p) => p.count));
+	const getY = (terminal: Terminal) => asMap({ points: asArray(terminal.data.map((p) => p.count)) });
 	const getX = (terminal: Terminal) => asArray(terminal.data.map((p) => new Date(p.date)));
 
 	const yDomain: [number, number] = [0, 500000];
@@ -33,6 +33,6 @@
 		let:y
 		let:datum
 	>
-		<Line xs={x} ys={y} color={colorScale(name(datum))} />
+		<Line xs={x} ys={y.points} color={colorScale(name(datum))} />
 	</XYFrame>
 </SvgResponsiveStage>

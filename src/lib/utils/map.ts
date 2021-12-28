@@ -36,18 +36,19 @@ function mapRecord<T, R, K extends keyof T>(coll: Record<K, T>, fn: Unary<T, R>)
 }
 
 export function map<T, R>(value: T, fn: Unary<Extract<T>, R>): ExtractValuesAs<T, R>;
-export function map(value: any, fn: Unary<unknown, unknown>): unknown {
-  if (value.__brand === asMapBrand) return mapRecord(value.value, fn);
-  if (value.__brand === asArrayBrand) return value.value.map(fn);
+// TODO: fix this unknown
+export function map<T, R>(value: any, fn: Unary<Extract<T>, R>): unknown {
+  if (value.__brand === asMapBrand) return mapRecord(value.value, (v: T) => map(v, fn));
+  if (value.__brand === asArrayBrand) return value.value.map((v: T) => map(v, fn));
   return fn(value);
 }
 
 export type Extract<T> =
-  T extends AsArray<infer TS> ? TS :
-    T extends AsMap<infer TS, infer _> ? TS :
+  T extends AsArray<infer TS> ? Extract<TS> :
+    T extends AsMap<infer TS, infer _> ? Extract<TS> :
       T;
 
 export type ExtractValuesAs<T, R> =
-  T extends AsArray<infer _> ? R[] :
-    T extends AsMap<infer _, infer K> ? Record<K, R> :
+  T extends AsArray<infer TS> ? Array<ExtractValuesAs<TS, R>> :
+    T extends AsMap<infer TS, infer K> ? Record<K, ExtractValuesAs<TS, R>> :
       R;
