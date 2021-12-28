@@ -18,5 +18,8 @@ export { default as AxisBottom } from './guides/AxisBottom.svelte'
 
 export { asArray, asMap } from './utils/map'
 
-export { default as Layout } from './scene/Layout.svelte'
 export { default as LayoutAs } from './scene/LayoutAs.svelte'
+
+export type { Scene } from './scene/scene';
+export { default as layout } from './scene/layout';
+export { getScene } from './scene/context';
