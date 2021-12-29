@@ -20,7 +20,7 @@
   const colorScale = scaleOrdinal(schemeTableau10).domain(data.map(name));
 </script>
 
-<SvgResponsiveStage>
+<SvgResponsiveStage let:scene>
   <XYFrame
     {data}
     {getX}
@@ -35,7 +35,7 @@
   >
     <Area xs={x}
           ys={y}
-          y0={yDomain[1]}
+          y0={scene.height}
           fill={colorScale(name(datum))}
           stroke={colorScale(name(datum))}
     />
