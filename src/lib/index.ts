@@ -15,6 +15,7 @@ export { default as SvgResponsiveStage } from './scene/SvgResponsiveStage.svelte
 
 export { default as AxisLeft } from './guides/AxisLeft.svelte'
 export { default as AxisBottom } from './guides/AxisBottom.svelte'
+export { default as Grid } from './guides/Grid.svelte'
 
 export { asArray, asMap } from './utils/map'
 

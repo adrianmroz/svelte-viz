@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { LayoutAs, AxisBottom, AxisLeft, SvgResponsiveStage, GroupStage, XYFrame, Line, asArray } from "svelte-viz";
+  import { Grid, LayoutAs, AxisBottom, AxisLeft, SvgResponsiveStage, GroupStage, XYFrame, Line, asArray } from "svelte-viz";
   import { scaleOrdinal, scaleLinear, scaleTime } from "d3-scale";
   import { schemeTableau10 } from "d3-scale-chromatic";
   import { terminals } from "../data/terminals";
@@ -27,23 +27,23 @@
   <LayoutAs top={10} left={100} right={30} bottom={50} as={GroupStage}>
     <AxisLeft slot="left" scale={yScale} domain={yDomain} />
     <AxisBottom slot="bottom" scale={xScale} domain={xDomain} />
-    <!-- This group is needed because of some internal svelte issues with nested slots -->
-    <g slot="center">
+    <svelte:fragment slot="center">
+      <Grid {xScale} {yScale} {xDomain} {yDomain} />
       <XYFrame
         {data}
         {getX}
         {xDomain}
-        xScale={xScale}
+        {xScale}
         {getY}
         {yDomain}
-        yScale={yScale}
+        {yScale}
         let:x
         let:y
         let:datum
       >
         <Line xs={x} ys={y} color={colorScale(name(datum))} />
       </XYFrame>
-    </g>
+    </svelte:fragment>
   </LayoutAs>
 </SvgResponsiveStage>
 
