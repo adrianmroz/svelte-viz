@@ -20,7 +20,7 @@
     width={width}
     height={height}
     viewBox={`0 0 ${width} ${height}`}>
-    <slot/>
+    <slot scene={$scene$}/>
   </svg>
 </div>
 
