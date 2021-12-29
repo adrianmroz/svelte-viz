@@ -61,7 +61,7 @@
               let:x
               let:y
             >
-              <Area xs={x} ys={y} y0={scene.height * 1.8} color="#333" />
+              <Area xs={x} ys={y} y0={scene.height * 1.8} opacity={1} />
             </XYFrame>
           </GroupStage>
         </GroupStage>

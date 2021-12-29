@@ -33,6 +33,11 @@
     let:y
     let:datum
   >
-    <Area xs={x} ys={y} y0={yDomain[1]} color={colorScale(name(datum))} />
+    <Area xs={x}
+          ys={y}
+          y0={yDomain[1]}
+          fill={colorScale(name(datum))}
+          stroke={colorScale(name(datum))}
+    />
   </XYFrame>
 </SvgResponsiveStage>

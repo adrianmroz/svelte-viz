@@ -6,7 +6,8 @@
   export let xs: number[] = [];
   export let ys: number[] = [];
   export let y0: number = 0;
-  export let color: Property.Stroke = "steelblue";
+  export let stroke: Property.Stroke = "#000";
+  export let fill: Property.Fill = "#ddd";
   export let width: Property.StrokeWidth = "1";
   export let opacity: Property.Opacity = 0.3;
 
@@ -22,13 +23,13 @@
 
 <path
   d={areaD}
-  fill={color}
+  fill={fill}
   opacity={opacity}
 ></path>
 
 <path
   d={lineD}
-  stroke={color}
+  stroke={stroke}
   stroke-width={width}
   fill="none"
 ></path>
