@@ -5,7 +5,7 @@
 	import type { Scene } from '../scene/scene';
 	import { getScene } from '../scene/context';
 	import type { ExtractValueAndReturnTypes } from '../utils/map';
-	import { mapper } from '../utils/map';
+	import { map } from '../utils/map';
 	import type { Scale } from "../utils/scale";
 
 	type Datum = $$Generic;
@@ -38,7 +38,7 @@
 		top: appliedRowScale(getRowValue(datum))
 	});
 	let x: Unary<Datum, XReturn>;
-	$: x = (datum: Datum) => mapper<X, number>()(getValue(datum), appliedValueScale);
+	$: x = (datum: Datum) => map<X, number>(getValue(datum), appliedValueScale);
 </script>
 
 {#each data as datum}

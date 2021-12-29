@@ -50,11 +50,7 @@ export type ExtractValueAndReturnTypes<T, R> =
       { value: ExtractValueAndReturnTypes<TS, R>["value"], return: Record<K, ExtractValueAndReturnTypes<TS, R>["return"]> } :
       { value: T, return: R }
 
-export function mapper<Input, Output>() {
-  type Types = ExtractValueAndReturnTypes<Input, Output>;
-  type Value = Types["value"];
-  type Return = Types["return"];
-
+export function map<Input, Output>(value: ExtractValueAndReturnTypes<Input, Output>['value'], fn: Unary<ExtractValueAndReturnTypes<Input, Output>['value'], Output>): ExtractValueAndReturnTypes<Input, Output>['return'] {
   function innerMap<V, O>(v: V, fn: Unary<V, O>) {
     if (isMap<V>(v)) {
       return mapRecord(v.value, v => innerMap(v, fn));
@@ -63,7 +59,5 @@ export function mapper<Input, Output>() {
     return fn(v);
   }
 
-  return function(value: Value, fn: Unary<Value, Output>): Return {
-    return innerMap<Value, Output>(value, fn);
-  }
+  return innerMap(value, fn);
 }

@@ -2,7 +2,7 @@
 	import type { Binary, Unary } from '../utils/function-types';
 	import { getScene } from '../scene/context';
 	import type { ExtractValueAndReturnTypes } from '../utils/map';
-	import { mapper } from "../utils/map";
+	import { map } from "../utils/map";
 	import type { Scale } from "../utils/scale";
 
 	type Datum = $$Generic;
@@ -35,8 +35,8 @@
 
 	let x: Unary<Datum, XReturn>;
 	let y: Unary<Datum, YReturn>;
-	$: x = (datum: Datum) => mapper<X, number>()(getX(datum), appliedXScale);
-	$: y = (datum: Datum) => mapper<Y, number>()(getY(datum), appliedYScale);
+	$: x = (datum: Datum) => map<X, number>(getX(datum), appliedXScale);
+	$: y = (datum: Datum) => map<Y, number>(getY(datum), appliedYScale);
 </script>
 
 {#each data as datum, idx}
