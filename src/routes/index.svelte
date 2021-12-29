@@ -8,4 +8,5 @@
 	<li><a href="heatmap">Heatmap</a></li>
 	<li><a href="dumbbelplot">Dumbbel Plot</a></li>
 	<li><a href="areachart">Area Chart</a></li>
+	<li><a href="ridgeplot">Ridge Plot</a></li>
 </ul>
