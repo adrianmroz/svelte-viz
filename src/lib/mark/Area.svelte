@@ -11,13 +11,12 @@
   export let opacity: Property.Opacity = 0.3;
 
   const areaGenerator = area<number[]>()
-    .y0(y0)
     .curve(curveLinear);
 
   const lineGenerator = line<number[]>()
     .curve(curveLinear);
 
-  $: areaD = areaGenerator(zip(xs, ys));
+  $: areaD = areaGenerator.y0(y0)(zip(xs, ys));
   $: lineD = lineGenerator(zip(xs, ys));
 </script>
 
