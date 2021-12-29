@@ -29,7 +29,7 @@
 
 	$: innerRowScale = rowScale.copy();
 	$: innerValueScale = valueScale.copy();
-	$: appliedRowScale = innerRowScale.domain(rowDomain).range([$scene$.height, 0]);
+	$: appliedRowScale = innerRowScale.domain(rowDomain.slice().reverse()).range([$scene$.height, 0]);
 	$: appliedValueScale = innerValueScale.domain(valueDomain).range([0, $scene$.width]);
 	$: calcScene = (datum: Datum): Scene => ({
 		left: 0,
