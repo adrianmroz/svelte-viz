@@ -5,11 +5,11 @@
   import { traffic } from "../data/traffic";
 
   const data = traffic;
-  const xDomain: [Date, Date] = [
+  const xDomain = [
     new Date("2016-01-04T00:00:00.000Z"),
     new Date("2016-01-09T23:00:00.000Z")
-  ];
-  const yDomain = [0, 5000];
+  ] as const;
+  const yDomain = [0, 5000] as const;
 
   const margin = 10;
   const labelLength = 100;
@@ -41,7 +41,6 @@
             as={GroupStage}
             left={labelLength}
             top={-(rowScene.height * 0.8)}
-            let:scene={areaChartScene}
           >
             <XYFrame
               data={[datum]}
@@ -57,7 +56,7 @@
               let:x
               let:y
             >
-              <Area xs={x} ys={y} y0={areaChartScene.height} opacity={1} />
+              <Area xs={x} ys={y} opacity={1} />
             </XYFrame>
           </Translate>
         </GroupStage>

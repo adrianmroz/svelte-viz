@@ -26,5 +26,5 @@
 </script>
 
 <svelte:component this={as} scene={translated}>
-  <slot scene={translated}></slot>
+  <slot></slot>
 </svelte:component>
