@@ -20,6 +20,7 @@ export { default as Grid } from './guides/Grid.svelte'
 export { asArray, asMap } from './utils/map'
 
 export { default as LayoutAs } from './scene/LayoutAs.svelte'
+export { default as Translate } from './scene/Translate.svelte'
 
 export type { Scene } from './scene/scene';
 export { default as layout } from './scene/layout';

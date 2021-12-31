@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { RowFrame, LayoutAs, Area, SvgResponsiveStage, GroupStage, XYFrame, asArray } from "svelte-viz";
+  import { Translate, RowFrame, LayoutAs, Area, SvgResponsiveStage, GroupStage, XYFrame, asArray } from "svelte-viz";
   import { scaleBand, scaleLinear, scaleTime } from "d3-scale";
   import type { CityTraffic } from "../data/traffic";
   import { traffic } from "../data/traffic";
@@ -15,14 +15,14 @@
   const rowDomain = data.map(name);
   const valueDomain = [0, 0] as const;
 
-  const rowScale = scaleBand().padding(0);
+  const rowScale = scaleBand().padding(0).paddingOuter(1);
 
   const getY = (d: CityTraffic) => asArray(d.values.map((p) => p.value));
   const getX = (d: CityTraffic) => asArray(d.values.map((p) => new Date(p.date)));
 </script>
 
 <SvgResponsiveStage>
-  <LayoutAs as={GroupStage} top={20} bottom={10} left={10} right={10}>
+  <LayoutAs as={GroupStage} top={10} bottom={10} left={10} right={10}>
     <svelte:fragment slot="center">
       <!-- Write RowLayout instead of RowFrame with dummy x's --->
       <RowFrame
@@ -37,16 +37,15 @@
         let:datum
       >
         <GroupStage {scene}>
-          <!-- Write InsetLayout --->
           <text alignment-baseline="middle" x={0} y={(scene.height / 2)} font-size="11">
             {datum.name}
           </text>
-          <GroupStage scene={{
-            left: 100,
-            width: scene.width - 100,
-            top: -(scene.height * 0.8),
-            height: scene.height * 1.8
-          }}>
+          <Translate
+            as={GroupStage}
+            left={100}
+            top={-(scene.height * 0.8)}
+            let:scene={translated}
+          >
             <XYFrame
               data={[datum]}
 
@@ -61,9 +60,9 @@
               let:x
               let:y
             >
-              <Area xs={x} ys={y} y0={scene.height * 1.8} opacity={1} />
+              <Area xs={x} ys={y} y0={translated.height} opacity={1} />
             </XYFrame>
-          </GroupStage>
+          </Translate>
         </GroupStage>
       </RowFrame>
     </svelte:fragment>

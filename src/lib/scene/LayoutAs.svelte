@@ -1,12 +1,7 @@
 <script lang="ts">
   import { getScene } from "./context";
-  import type { SvelteComponentTyped } from "svelte";
-  import type { Scene } from "./scene";
   import layout from "./layout";
-
-  type StageComponent = {
-    new(...args: unknown[]): SvelteComponentTyped<{ scene: Scene }>;
-  }
+  import type { StageComponent } from "./stage";
 
   export let top = 0;
   export let left = 0;
