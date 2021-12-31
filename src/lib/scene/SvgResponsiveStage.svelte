@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { init, track } from "./scene-tracker";
+  import SceneTracker from "./SceneTracker.svelte";
+  import type { Scene } from "./scene";
 
   export let initialWidth = 0;
   export let initialHeight = 0;
@@ -7,8 +8,13 @@
   let width = initialWidth;
   let height = initialHeight;
 
-  const scene$ = init({ top: 0, left: 0, width, height });
-  $: track(scene$, scene => ({ ...scene, height, width }));
+  let scene: Scene;
+  $: scene = {
+    left: 0,
+    top: 0,
+    width,
+    height
+  };
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
@@ -16,7 +22,9 @@
     width={width}
     height={height}
     viewBox={`0 0 ${width} ${height}`}>
-    <slot scene={$scene$}/>
+    <SceneTracker scene={scene}>
+      <slot scene={scene}/>
+    </SceneTracker>
   </svg>
 </div>
 

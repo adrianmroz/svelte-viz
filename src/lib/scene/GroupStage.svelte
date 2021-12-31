@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { toTranslate } from './scene';
   import type { Scene } from "./scene";
-  import { track, init } from "./scene-tracker";
+  import { toTranslate } from "./scene";
+  import SceneTracker from "./SceneTracker.svelte";
 
   export let scene: Scene;
-
-  const scene$ = init(scene);
-  $: track(scene$, scene);
 </script>
 
 <g transform={toTranslate(scene)}>
-  <slot />
+  <SceneTracker {scene}>
+    <slot />
+  </SceneTracker>
 </g>
