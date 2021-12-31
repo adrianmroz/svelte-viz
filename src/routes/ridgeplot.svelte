@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Translate, RowFrame, LayoutAs, Area, SvgResponsiveStage, GroupStage, XYFrame, asArray } from "svelte-viz";
+  import { Translate, RowLayout, LayoutAs, Area, SvgResponsiveStage, GroupStage, XYFrame, asArray } from "svelte-viz";
   import { scaleBand, scaleLinear, scaleTime } from "d3-scale";
   import type { CityTraffic } from "../data/traffic";
   import { traffic } from "../data/traffic";
@@ -13,8 +13,6 @@
   const name = (d: CityTraffic) => d.name;
 
   const rowDomain = data.map(name);
-  const valueDomain = [0, 0] as const;
-
   const rowScale = scaleBand().padding(0).paddingOuter(1);
 
   const getY = (d: CityTraffic) => asArray(d.values.map((p) => p.value));
@@ -24,14 +22,10 @@
 <SvgResponsiveStage>
   <LayoutAs as={GroupStage} top={10} bottom={10} left={10} right={10}>
     <svelte:fragment slot="center">
-      <!-- Write RowLayout instead of RowFrame with dummy x's --->
-      <RowFrame
+      <RowLayout
         {data}
         {rowDomain}
-        {valueDomain}
-        valueScale={scaleLinear()}
         getRowValue={name}
-        getValue={() => 0}
         {rowScale}
         let:scene
         let:datum
@@ -64,7 +58,7 @@
             </XYFrame>
           </Translate>
         </GroupStage>
-      </RowFrame>
+      </RowLayout>
     </svelte:fragment>
   </LayoutAs>
 </SvgResponsiveStage>
