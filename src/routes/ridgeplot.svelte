@@ -9,36 +9,39 @@
     new Date("2016-01-04T00:00:00.000Z"),
     new Date("2016-01-09T23:00:00.000Z")
   ];
+  const yDomain = [0, 5000];
+
+  const margin = 10;
+  const labelLength = 100;
+  const rowScale = scaleBand().padding(0).paddingOuter(1);
 
   const name = (d: CityTraffic) => d.name;
-
   const rowDomain = data.map(name);
-  const rowScale = scaleBand().padding(0).paddingOuter(1);
 
   const getY = (d: CityTraffic) => asArray(d.values.map((p) => p.value));
   const getX = (d: CityTraffic) => asArray(d.values.map((p) => new Date(p.date)));
 </script>
 
 <SvgResponsiveStage>
-  <LayoutAs as={GroupStage} top={10} bottom={10} left={10} right={10}>
+  <LayoutAs as={GroupStage} top={margin} bottom={margin} left={margin} right={margin}>
     <svelte:fragment slot="center">
       <RowLayout
         {data}
         {rowDomain}
         getRowValue={name}
         {rowScale}
-        let:scene
+        let:scene={rowScene}
         let:datum
       >
-        <GroupStage {scene}>
-          <text alignment-baseline="middle" x={0} y={(scene.height / 2)} font-size="11">
+        <GroupStage scene={rowScene}>
+          <text alignment-baseline="middle" y={(rowScene.height / 2)} font-size={(rowScene.height * 0.7)}>
             {datum.name}
           </text>
           <Translate
             as={GroupStage}
-            left={100}
-            top={-(scene.height * 0.8)}
-            let:scene={translated}
+            left={labelLength}
+            top={-(rowScene.height * 0.8)}
+            let:scene={areaChartScene}
           >
             <XYFrame
               data={[datum]}
@@ -48,13 +51,13 @@
               xScale={scaleTime()}
 
               {getY}
-              yDomain={[0, 5000]}
+              {yDomain}
               yScale={scaleLinear()}
 
               let:x
               let:y
             >
-              <Area xs={x} ys={y} y0={translated.height} opacity={1} />
+              <Area xs={x} ys={y} y0={areaChartScene.height} opacity={1} />
             </XYFrame>
           </Translate>
         </GroupStage>
