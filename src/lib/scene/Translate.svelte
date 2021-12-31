@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { StageComponent } from "./stage";
-  import { getScene, setScene } from "./context";
-  import type { WritableScene, Scene } from "./scene";
-  import { writable } from "svelte/store";
+  import { getScene } from "./context";
+  import { track, init } from "./scene-tracker";
+  import type { Scene } from "./scene";
 
   export let left = 0;
   export let top = 0;
@@ -19,10 +19,8 @@
     height: $scene$.height - top
   }
 
-  const translated$: WritableScene = writable(translated);
-  setScene(translated$);
-
-  $: translated$.set(translated);
+  const translated$ = init(translated);
+  $: track(translated$, translated);
 </script>
 
 <svelte:component this={as} scene={translated}>
