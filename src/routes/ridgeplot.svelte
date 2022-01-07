@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Translate, RowLayout, LayoutAs, Area, SvgResponsiveStage, GroupStage, XYFrame, asArray } from "svelte-viz";
+  import { Inset, RowLayout, LayoutAs, Area, SvgResponsiveStage, GroupStage, XYFrame, asArray } from "svelte-viz";
   import { scaleBand, scaleLinear, scaleTime } from "d3-scale";
   import type { CityTraffic } from "../data/traffic";
   import { traffic } from "../data/traffic";
@@ -37,7 +37,7 @@
           <text alignment-baseline="middle" y={(rowScene.height / 2)} font-size={(rowScene.height * 0.7)}>
             {datum.name}
           </text>
-          <Translate
+          <Inset
             as={GroupStage}
             left={labelLength}
             top={-(rowScene.height * 0.8)}
@@ -58,7 +58,7 @@
             >
               <Area xs={x} ys={y} opacity={1} />
             </XYFrame>
-          </Translate>
+          </Inset>
         </GroupStage>
       </RowLayout>
     </svelte:fragment>
