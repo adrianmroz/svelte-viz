@@ -2,8 +2,8 @@
   import SceneTracker from "./SceneTracker.svelte";
   import type { Scene } from "./scene";
 
-  export let initialWidth = 0;
-  export let initialHeight = 0;
+  export let initialWidth = 800;
+  export let initialHeight = 600;
 
   let width = initialWidth;
   let height = initialHeight;

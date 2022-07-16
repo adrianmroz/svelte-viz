@@ -1,41 +1,29 @@
 <script lang="ts">
-  import type { Property } from "csstype";
-  import { area, curveLinear, line } from "d3-shape";
-  import { zip } from "d3-array";
-  import { getScene } from "../scene/context";
+	import type { Property } from 'csstype';
+	import { area, CurveFactory, curveLinear, line } from 'd3-shape';
+	import { zip } from 'd3-array';
+	import { getScene } from '../scene/context';
 
-  export let xs: number[] = [];
-  export let ys: number[] = [];
-  export let y0: number | null = null;
-  export let stroke: Property.Stroke = "#000";
-  export let fill: Property.Fill = "#ddd";
-  export let width: Property.StrokeWidth = "1";
-  export let opacity: Property.Opacity = 0.3;
+	export let xs: number[] = [];
+	export let ys: number[] = [];
+	export let y0: number | null = null;
+	export let stroke: Property.Stroke = '#000';
+	export let fill: Property.Fill = '#ddd';
+	export let width: Property.StrokeWidth = '1';
+	export let opacity: Property.Opacity = 0.3;
+	export let curve: CurveFactory = curveLinear;
 
-  const areaGenerator = area<number[]>()
-    .curve(curveLinear);
+	const areaGenerator = area<number[]>().curve(curve);
 
-  const lineGenerator = line<number[]>()
-    .curve(curveLinear);
+	const lineGenerator = line<number[]>().curve(curve);
 
-  const scene$ = getScene();
+	const scene$ = getScene();
 
-  $: y0Value = y0 ?? $scene$.height;
-  $: areaD = areaGenerator.y0(y0Value)(zip(xs, ys));
-  $: lineD = lineGenerator(zip(xs, ys));
+	$: y0Value = y0 ?? $scene$.height;
+	$: areaD = areaGenerator.y0(y0Value)(zip(xs, ys));
+	$: lineD = lineGenerator(zip(xs, ys));
 </script>
 
-<path
-  d={areaD}
-  fill={fill}
-  opacity={opacity}
-></path>
+<path d={areaD} {fill} {opacity} />
 
-<path
-  d={lineD}
-  stroke={stroke}
-  stroke-width={width}
-  fill="none"
-></path>
-
-
+<path d={lineD} {stroke} stroke-width={width} fill="none" />

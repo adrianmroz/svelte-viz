@@ -2,8 +2,9 @@
 	import type { Binary, Unary } from '../utils/function-types';
 	import { getScene } from '../scene/context';
 	import type { ExtractValueAndReturnTypes } from '../utils/map';
-	import { map } from "../utils/map";
-	import type { Scale } from "../utils/scale";
+	import { map } from '../utils/map';
+	import type { Scale } from '../utils/scale';
+	import { domain } from '../../components/Rain.svelte';
 
 	type Datum = $$Generic;
 	type X = $$Generic;
@@ -30,8 +31,10 @@
 	const scene$ = getScene();
 	$: innerYScale = yScale.copy();
 	$: innerXScale = xScale.copy();
-	$: appliedYScale = innerYScale.domain(yDomain).range([$scene$.height, 0]);
-	$: appliedXScale = innerXScale.domain(xDomain).range([0, $scene$.width]);
+	$: appliedYScale = innerYScale.domain(yDomain).range([$scene$.height + $scene$.top, $scene$.top]);
+	$: appliedXScale = innerXScale
+		.domain(xDomain)
+		.range([$scene$.left, $scene$.width + $scene$.left]);
 
 	let x: Unary<Datum, XReturn>;
 	let y: Unary<Datum, YReturn>;
@@ -40,8 +43,5 @@
 </script>
 
 {#each data as datum, idx}
-	<slot key={keyFn(datum, idx)}
-				{datum}
-				x={x(datum)}
-				y={y(datum)} />
+	<slot key={keyFn(datum, idx)} {datum} x={x(datum)} y={y(datum)} />
 {/each}

@@ -1,29 +1,29 @@
 <script lang="ts">
-  import type { StageComponent } from "./stage";
-  import { getScene } from "./context";
-  import type { Scene } from "./scene";
-  import SceneTracker from "./SceneTracker.svelte";
+	import type { StageComponent } from './stage';
+	import { getScene } from './context';
+	import type { Scene } from './scene';
+	import SceneTracker from './SceneTracker.svelte';
 
-  export let left = 0;
-  export let top = 0;
-  export let right = 0;
-  export let bottom = 0;
+	export let left = 0;
+	export let top = 0;
+	export let right = 0;
+	export let bottom = 0;
 
-  export let as: StageComponent;
+	export let as: StageComponent;
 
-  const scene$ = getScene();
+	const scene$ = getScene();
 
-  let inset: Scene;
-  $: inset = {
-    left,
-    top,
-    width: $scene$.width - left - right,
-    height: $scene$.height - top - bottom
-  };
+	let inset: Scene;
+	$: inset = {
+		left: $scene$.left + left,
+		top: $scene$.top + top,
+		width: $scene$.width - left - right,
+		height: $scene$.height - top - bottom
+	};
 </script>
 
 <svelte:component this={as} scene={inset}>
-  <SceneTracker scene={inset}>
-    <slot></slot>
-  </SceneTracker>
+	<SceneTracker scene={{ ...inset, top: 0, left: 0 }}>
+		<slot />
+	</SceneTracker>
 </svelte:component>
