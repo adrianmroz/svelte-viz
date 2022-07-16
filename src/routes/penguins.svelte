@@ -44,7 +44,7 @@
 	]).domain(species);
 
 	function getShortSpecies(p: Penguin): string {
-		return p.species.split(' ').at(0);
+		return p.species.split(' ')[0];
 	}
 </script>
 
