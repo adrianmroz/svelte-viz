@@ -8,7 +8,6 @@
 	export let data;
 	export let domain;
 	export let getX;
-	export let color;
 
 	$: binFn = bin<Penguin, number>().value(getX).thresholds(20);
 	$: series = binFn(data);
@@ -32,5 +31,5 @@
 	let:x
 	let:y
 >
-	<Area xs={x} ys={y} y0={$scene$.height} fill={color} stroke={color} curve={curveNatural} />
+	<Area xs={x} ys={y} y0={$scene$.height} curve={curveNatural} />
 </XYFrame>

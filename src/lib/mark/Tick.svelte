@@ -2,13 +2,12 @@
 	export let x;
 	export let y;
 	export let length;
-	export let color;
 	export let width = 0.5;
 	export let horizontal = false;
 </script>
 
 <line
-	stroke={color}
+	stroke="currentColor"
 	stroke-width={width}
 	x1={x}
 	y1={y}

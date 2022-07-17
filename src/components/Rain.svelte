@@ -5,7 +5,6 @@
 	export let data;
 	export let domain;
 	export let getX;
-	export let color;
 </script>
 
 <XYFrame
@@ -19,5 +18,5 @@
 	let:x
 	let:y
 >
-	<Point {x} {y} {color} />
+	<Point {x} {y} />
 </XYFrame>

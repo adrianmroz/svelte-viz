@@ -7,8 +7,8 @@
 	export let xs: number[] = [];
 	export let ys: number[] = [];
 	export let y0: number | null = null;
-	export let stroke: Property.Stroke = '#000';
-	export let fill: Property.Fill = '#ddd';
+	export let stroke: Property.Stroke = 'currentColor';
+	export let fill: Property.Fill = 'currentColor';
 	export let width: Property.StrokeWidth = '1';
 	export let opacity: Property.Opacity = 0.3;
 	export let curve: CurveFactory = curveLinear;

@@ -4,6 +4,8 @@
 	import SceneTracker from './SceneTracker.svelte';
 
 	export let scene: Scene;
+	let className = '';
+	export { className as class };
 
 	$: innerScale = {
 		...scene,
@@ -12,7 +14,7 @@
 	};
 </script>
 
-<g transform={toTranslate(scene)}>
+<g class={className} transform={toTranslate(scene)}>
 	<SceneTracker scene={innerScale}>
 		<slot />
 	</SceneTracker>

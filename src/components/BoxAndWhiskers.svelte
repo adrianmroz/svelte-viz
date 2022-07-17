@@ -6,7 +6,6 @@
 	export let data;
 	export let domain;
 	export let get;
-	export let color;
 
 	const scene$ = getScene();
 
@@ -26,20 +25,11 @@
 	$: height = $scene$.height;
 </script>
 
-<line class="axis" stroke={color} x1={scale(min)} x2={scale(max)} y1={center} y2={center} />
-<rect
-	class="box"
-	fill={color}
-	stroke={color}
-	x={scale(q1)}
-	y={center - height / 2}
-	width={scale(q3) - scale(q1)}
-	{height}
-/>
+<line class="axis" x1={scale(min)} x2={scale(max)} y1={center} y2={center} />
+<rect class="box" x={scale(q1)} y={center - height / 2} width={scale(q3) - scale(q1)} {height} />
 
 <line
 	class="min"
-	stroke={color}
 	x1={scale(min)}
 	x2={scale(min)}
 	y1={center - height / 2}
@@ -47,7 +37,6 @@
 />
 <line
 	class="median"
-	stroke={color}
 	x1={scale(median)}
 	x2={scale(median)}
 	y1={center - height / 2}
@@ -55,7 +44,6 @@
 />
 <line
 	class="max"
-	stroke={color}
 	x1={scale(max)}
 	x2={scale(max)}
 	y1={center - height / 2}
@@ -67,6 +55,7 @@
 	.min,
 	.median,
 	.max {
+		stroke: currentColor;
 		stroke-width: 1.5;
 		shape-rendering: crispEdges;
 	}
@@ -76,7 +65,9 @@
 	}
 
 	.box {
+		fill: currentColor;
 		fill-opacity: 0.3;
+		stroke: currentColor;
 		stroke-width: 1;
 		stroke-opacity: 0.7;
 		shape-rendering: crispEdges;

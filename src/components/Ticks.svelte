@@ -6,9 +6,8 @@
 	export let data;
 	export let domain;
 	export let get;
-	export let color;
 </script>
 
 <XFrame {data} {domain} scale={scaleLinear()} {get} let:x let:scene>
-	<Tick {x} y={scene.top} {color} length={scene.height} />
+	<Tick {x} y={scene.top} length={scene.height} />
 </XFrame>

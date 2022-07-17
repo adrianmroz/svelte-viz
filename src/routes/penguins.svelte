@@ -37,11 +37,9 @@
 	const species = bySpecies.map(getSpecies).sort();
 	const rowScale = scaleBand().paddingInner(0.3);
 
-	const speciesColor = scaleOrdinal([
-		'rgb(255, 110, 1)',
-		'rgb(199, 92, 203)',
-		'rgb(9, 112, 117)'
-	]).domain(species);
+	const speciesColor = scaleOrdinal(['text-adelie', 'text-chinstrap', 'text-gentoo']).domain(
+		species
+	);
 
 	function getShortSpecies(p: Penguin): string {
 		return p.species.split(' ')[0];
@@ -68,10 +66,10 @@
 				getRowValue={getSpecies}
 			>
 				<text
-					class="row-species"
+					class={`row-species ${speciesColor(getSpecies(datum))}`}
 					x={scene.width - 15}
 					y={center(scene).y}
-					fill={speciesColor(getSpecies(datum))}
+					fill="currentColor"
 				>
 					{getShortSpecies(datum)}
 				</text>
@@ -87,37 +85,17 @@
 				rowDomain={species}
 				getRowValue={getSpecies}
 			>
-				<GroupStage {scene}>
+				<GroupStage {scene} class={speciesColor(getSpecies(datum))}>
 					<Split ratio="0.6">
 						<g slot="top">
-							<Cloud data={datum.items} {domain} getX={x} color={speciesColor(getSpecies(datum))} />
-							<Average
-								getX={x}
-								data={datum.items}
-								{domain}
-								color={speciesColor(getSpecies(datum))}
-							/>
+							<Cloud data={datum.items} {domain} getX={x} />
+							<Average getX={x} data={datum.items} {domain} />
 						</g>
 						<g slot="bottom">
 							<Inset as={GroupStage} top={5} bottom={25}>
-								<Rain
-									data={datum.items}
-									{domain}
-									getX={x}
-									color={speciesColor(getSpecies(datum))}
-								/>
-								<!--								<Ticks-->
-								<!--									data={datum.items}-->
-								<!--									{domain}-->
-								<!--									get={x}-->
-								<!--									color={speciesColor(getSpecies(datum))}-->
-								<!--								/>-->
-								<BoxAndWhiskers
-									data={datum.items}
-									{domain}
-									get={x}
-									color={speciesColor(getSpecies(datum))}
-								/>
+								<Rain data={datum.items} {domain} getX={x} />
+								<Ticks data={datum.items} {domain} get={x} />
+								<BoxAndWhiskers data={datum.items} {domain} get={x} />
 							</Inset>
 						</g>
 					</Split>
