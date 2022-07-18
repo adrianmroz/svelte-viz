@@ -11,15 +11,10 @@
 </script>
 
 <XFrame data={[value]} scale={scaleLinear()} {domain} get={(d) => d} let:x let:scene>
-	<text class="median" {x} y={scene.height - 15}>{value.toFixed(2)}</text>
+	<text
+		class="font-source text-base font-semibold fill-current"
+		{x}
+		y={scene.height - 15}
+		text-anchor="middle">{value.toFixed(2)}</text
+	>
 </XFrame>
-
-<style>
-	.median {
-		text-anchor: middle;
-		font-family: 'Source Code Pro', ui-sans-serif;
-		font-size: 18px;
-		font-weight: bold;
-		fill: currentColor;
-	}
-</style>

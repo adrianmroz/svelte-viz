@@ -25,51 +25,39 @@
 	$: height = $scene$.height;
 </script>
 
-<line class="axis" x1={scale(min)} x2={scale(max)} y1={center} y2={center} />
-<rect class="box" x={scale(q1)} y={center - height / 2} width={scale(q3) - scale(q1)} {height} />
+<line
+	class="stroke-current stroke-2 crisp-edges"
+	x1={scale(min)}
+	x2={scale(max)}
+	y1={center}
+	y2={center}
+/>
+<rect
+	class="fill-current stroke-current stroke-1 crisp-edges [fill-opacity:0.3] [stroke-opacity:0.7]"
+	x={scale(q1)}
+	y={center - height / 2}
+	width={scale(q3) - scale(q1)}
+	{height}
+/>
 
 <line
-	class="min"
+	class="stroke-current stroke-[1.5] crisp-edges"
 	x1={scale(min)}
 	x2={scale(min)}
 	y1={center - height / 2}
 	y2={center + height / 2}
 />
 <line
-	class="median"
+	class="stroke-current stroke-[1.5] crisp-edges"
 	x1={scale(median)}
 	x2={scale(median)}
 	y1={center - height / 2}
 	y2={center + height / 2}
 />
 <line
-	class="max"
+	class="stroke-current stroke-[1.5] crisp-edges"
 	x1={scale(max)}
 	x2={scale(max)}
 	y1={center - height / 2}
 	y2={center + height / 2}
 />
-
-<style>
-	.axis,
-	.min,
-	.median,
-	.max {
-		stroke: currentColor;
-		stroke-width: 1.5;
-		shape-rendering: crispEdges;
-	}
-
-	.axis {
-		stroke-width: 2;
-	}
-
-	.box {
-		fill: currentColor;
-		fill-opacity: 0.3;
-		stroke: currentColor;
-		stroke-width: 1;
-		stroke-opacity: 0.7;
-		shape-rendering: crispEdges;
-	}
-</style>
