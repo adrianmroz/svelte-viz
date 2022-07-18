@@ -4,7 +4,6 @@
 	import type { ExtractValueAndReturnTypes } from '../utils/map';
 	import { map } from '../utils/map';
 	import type { Scale } from '../utils/scale';
-	import { domain } from '../../components/Rain.svelte';
 
 	type Datum = $$Generic;
 	type X = $$Generic;
