@@ -13,5 +13,8 @@
 		:global(a) {
 			color: inherit;
 		}
+		:global(text) {
+			fill: currentColor;
+		}
 	}
 </style>

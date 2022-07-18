@@ -94,7 +94,7 @@
 						<g slot="bottom">
 							<Inset as={GroupStage} top={5} bottom={25}>
 								<Rain data={datum.items} {domain} getX={x} />
-								<Ticks data={datum.items} {domain} get={x} />
+								<!--								<Ticks data={datum.items} {domain} get={x} />-->
 								<BoxAndWhiskers data={datum.items} {domain} get={x} />
 							</Inset>
 						</g>
