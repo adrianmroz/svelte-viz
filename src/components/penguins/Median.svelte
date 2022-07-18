@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { scaleLinear } from 'd3-scale';
 	import { median } from 'd3-array';
-	import XFrame from '../lib/frame/XFrame.svelte';
+	import XFrame from '$lib/frame/XFrame.svelte';
 
 	export let data;
 	export let domain;

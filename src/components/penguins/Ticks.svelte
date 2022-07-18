@@ -1,7 +1,7 @@
 <script lang="ts">
-	import XFrame from '../lib/frame/XFrame.svelte';
+	import XFrame from '$lib/frame/XFrame.svelte';
 	import { scaleLinear } from 'd3-scale';
-	import Tick from '../lib/mark/Tick.svelte';
+	import Tick from '$lib/mark/Tick.svelte';
 
 	export let data;
 	export let domain;

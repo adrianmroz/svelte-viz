@@ -2,7 +2,7 @@
 	import { Area, asArray, getScene, XYFrame } from 'svelte-viz';
 	import { scaleLinear } from 'd3-scale';
 	import { bin, max } from 'd3-array';
-	import { Penguin } from '../data/penguins';
+	import { Penguin } from '../../data/penguins';
 	import { curveNatural } from 'd3-shape';
 
 	export let data;
