@@ -3,7 +3,7 @@
 	import { scaleLinear } from 'd3-scale';
 	import { bin, max } from 'd3-array';
 	import { Penguin } from '../../data/penguins';
-	import { curveNatural } from 'd3-shape';
+	import { curveBasis } from 'd3-shape';
 
 	export let data;
 	export let domain;
@@ -31,5 +31,5 @@
 	let:x
 	let:y
 >
-	<Area xs={x} ys={y} y0={$scene$.height} curve={curveNatural} />
+	<Area xs={x} ys={y} y0={$scene$.height} curve={curveBasis} />
 </XYFrame>
