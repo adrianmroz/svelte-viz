@@ -12,8 +12,8 @@
 	$: binFn = bin<Penguin, number>().value(getX).thresholds(20);
 	$: series = binFn(data);
 
-	const getY = (bins) => asArray(bins.map((bin) => bin.length));
-	const getXP = (bins) => asArray(bins.map((bin) => (bin.x0 + bin.x1) / 2));
+	const count = (bins) => asArray(bins.map((bin) => bin.length));
+	const binMidpoint = (bins) => asArray(bins.map((bin) => (bin.x0 + bin.x1) / 2));
 
 	$: yDomain = [0, max(series, (s) => s.length)];
 
@@ -24,10 +24,10 @@
 	data={[series]}
 	xScale={scaleLinear()}
 	xDomain={domain}
-	getX={getXP}
+	getX={binMidpoint}
 	yScale={scaleLinear()}
 	{yDomain}
-	{getY}
+	getY={count}
 	let:x
 	let:y
 >
