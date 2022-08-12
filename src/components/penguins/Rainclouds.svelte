@@ -27,9 +27,9 @@
 				<Median getX={getValue} data={datum.items} domain={valueDomain} />
 			</g>
 			<g slot="bottom">
-				<Inset as={GroupStage} top={5} bottom={25}>
+				<Inset top={10} bottom={25}>
 					<Rain data={datum.items} domain={valueDomain} getX={getValue} />
-					<!--					<Ticks data={datum.items} domain={valueDomain} get={getValue} />-->
+					<Ticks data={datum.items} domain={valueDomain} get={getValue} />
 					<BoxAndWhiskers data={datum.items} domain={valueDomain} get={getValue} />
 				</Inset>
 			</g>

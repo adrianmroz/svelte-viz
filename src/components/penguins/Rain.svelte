@@ -18,5 +18,5 @@
 	let:x
 	let:y
 >
-	<Point {x} {y} />
+	<Point {x} {y} size={2} strokeWidth={0.5} fillOpacity={0.5} />
 </XYFrame>

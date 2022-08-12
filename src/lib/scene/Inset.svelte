@@ -9,7 +9,7 @@
 	export let right = 0;
 	export let bottom = 0;
 
-	export let as: StageComponent;
+	export let as: StageComponent = SceneTracker;
 
 	const scene$ = getScene();
 
@@ -23,7 +23,5 @@
 </script>
 
 <svelte:component this={as} scene={inset}>
-	<SceneTracker scene={{ ...inset, top: 0, left: 0 }}>
-		<slot />
-	</SceneTracker>
+	<slot />
 </svelte:component>

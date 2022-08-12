@@ -10,7 +10,7 @@
 	const scene$ = getScene();
 
 	$: innerScale = scale.copy();
-	$: appliedScale = innerScale.domain(domain).range([0, $scene$.width]);
+	$: appliedScale = innerScale.domain(domain).range([$scene$.left, $scene$.width + $scene$.left]);
 
 	let lines: SVGGElement;
 
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<g class="grid" bind:this={lines} transform={`translate(0, ${$scene$.height})`} />
+<g class="grid" bind:this={lines} transform={`translate(0, ${$scene$.height + $scene$.top})`} />
 
 <style>
 	.grid :global(line) {

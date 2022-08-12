@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AxisBottom, GroupStage, LayoutAs, SvgResponsiveStage } from 'svelte-viz';
+	import { AxisBottom, Gutters, SvgResponsiveStage } from 'svelte-viz';
 	import { Penguin, penguins } from '../../data/penguins';
 	import { extent } from 'd3-array';
 	import { groupBy, summarize, tidy } from '@tidyjs/tidy';
@@ -10,7 +10,7 @@
 	const billRatio = (d: Penguin) => d.culmenLength / d.culmenDepth;
 	const billRatioExtent = extent(penguins, billRatio);
 
-	const bySpecies = tidy(
+	const bySpecies: Array<{ species: string; items: Penguin[] }> = tidy(
 		penguins,
 		groupBy('species', [
 			summarize({
@@ -18,6 +18,8 @@
 			})
 		])
 	);
+
+	console.log({ bySpecies });
 
 	const getSpecies = (d) => d.species;
 	const species = bySpecies.map(getSpecies).sort();
@@ -29,7 +31,7 @@
 </script>
 
 <SvgResponsiveStage>
-	<LayoutAs as={GroupStage} left={140} bottom={40} top={20} right={20}>
+	<Gutters left={140} bottom={40} top={20} right={20}>
 		<g slot="left">
 			<Labels
 				data={bySpecies}
@@ -53,5 +55,5 @@
 		<g slot="bottom">
 			<AxisBottom scale={scaleLinear()} domain={billRatioExtent} />
 		</g>
-	</LayoutAs>
+	</Gutters>
 </SvgResponsiveStage>

@@ -14,9 +14,9 @@
 	getX={get}
 	yDomain={[0, 1]}
 	yScale={scaleLinear()}
-	getY={() => asMap({ y1: 0, y2: 1 })}
+	getY={() => asMap({ top: 0, bottom: 1 })}
 	let:x
 	let:y
 >
-	<Tick x1={x} x2={x} y1={y.y1} y2={y.y2} />
+	<Tick x1={x} x2={x} y1={y.top} y2={y.bottom} />
 </XYFrame>

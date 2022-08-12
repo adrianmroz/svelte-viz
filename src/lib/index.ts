@@ -21,7 +21,7 @@ export { default as VerticalGrid } from './guides/VerticalGrid.svelte';
 
 export { asArray, asMap } from './utils/map';
 
-export { default as LayoutAs } from './scene/LayoutAs.svelte';
+export { default as Gutters } from './scene/Gutters.svelte';
 export { default as Inset } from './scene/Inset.svelte';
 export { default as Split } from './scene/Split.svelte';
 export { default as RowLayout } from './scene/RowLayout.svelte';
