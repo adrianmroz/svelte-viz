@@ -21,7 +21,7 @@
 		.domain(domain)
 		.range([$scene$.left, $scene$.width + $scene$.left]);
 
-	$: center = ($scene$.top + $scene$.height) / 2;
+	$: center = $scene$.top + $scene$.height / 2;
 	$: height = $scene$.height;
 </script>
 
