@@ -1,17 +1,19 @@
 <script lang="ts">
 	import { scaleLinear } from 'd3-scale';
 	import { asMap, Tick, XYFrame } from 'svelte-viz';
+	import { getChartContext } from './context';
 
-	export let data;
-	export let domain;
-	export let get;
+	const { data: data$, getValue: getValue$, domain: domain$ } = getChartContext();
+	$: data = $data$;
+	$: domain = $domain$;
+	$: getValue = $getValue$;
 </script>
 
 <XYFrame
 	{data}
 	xDomain={domain}
 	xScale={scaleLinear()}
-	getX={get}
+	getX={getValue}
 	yDomain={[0, 1]}
 	yScale={scaleLinear()}
 	getY={() => asMap({ top: 0, bottom: 1 })}

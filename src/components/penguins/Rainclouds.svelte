@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { GroupStage, Inset, RowLayout, Split, VerticalGrid } from 'svelte-viz';
-	import Cloud from './Cloud.svelte';
-	import Median from './Median.svelte';
-	import Rain from './Rain.svelte';
-	import BoxAndWhiskers from './BoxAndWhiskers.svelte';
+	import { GroupStage, Inset, RowLayout, VerticalGrid } from 'svelte-viz';
+	import Rain from './charts/raincloud/Rain.svelte';
+	import BoxAndWhiskers from './charts/raincloud/BoxAndWhiskers.svelte';
 	import { scaleLinear } from 'd3-scale';
-	import Ticks from './Ticks.svelte';
+	import Ticks from './charts/raincloud/Ticks.svelte';
+	import RainCloudChart from './charts/raincloud/RainCloudChart.svelte';
 
 	export let data;
 	export let rowScale;
@@ -21,18 +20,12 @@
 <VerticalGrid scale={scaleLinear()} domain={valueDomain} />
 <RowLayout {rowScale} {data} rowDomain={species} getRowValue={getSpecies} let:datum let:scene>
 	<GroupStage {scene} class={speciesClass(getSpecies(datum))}>
-		<Split ratio="0.6">
-			<g slot="top">
-				<Cloud data={datum.items} domain={valueDomain} getX={getValue} />
-				<Median getX={getValue} data={datum.items} domain={valueDomain} />
-			</g>
-			<g slot="bottom">
-				<Inset top={10} bottom={25}>
-					<Rain data={datum.items} domain={valueDomain} getX={getValue} />
-					<Ticks data={datum.items} domain={valueDomain} get={getValue} />
-					<BoxAndWhiskers data={datum.items} domain={valueDomain} get={getValue} />
-				</Inset>
-			</g>
-		</Split>
+		<RainCloudChart data={datum.items} domain={valueDomain} {getValue}>
+			<Inset top={10} bottom={25}>
+				<Ticks />
+				<BoxAndWhiskers />
+				<Rain />
+			</Inset>
+		</RainCloudChart>
 	</GroupStage>
 </RowLayout>

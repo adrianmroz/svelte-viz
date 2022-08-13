@@ -19,8 +19,6 @@
 		])
 	);
 
-	console.log({ bySpecies });
-
 	const getSpecies = (d) => d.species;
 	const species = bySpecies.map(getSpecies).sort();
 	const rowScale = scaleBand().paddingInner(0.3);

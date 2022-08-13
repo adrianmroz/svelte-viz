@@ -2,14 +2,16 @@
 	import { scaleLinear } from 'd3-scale';
 	import { ascending, quantile } from 'd3-array';
 	import { getScene } from 'svelte-viz';
+	import { getChartContext } from './context';
 
-	export let data;
-	export let domain;
-	export let get;
+	const { data: data$, getValue: getValue$, domain: domain$ } = getChartContext();
+	$: data = $data$;
+	$: domain = $domain$;
+	$: getValue = $getValue$;
 
 	const scene$ = getScene();
 
-	$: data_sorted = data.map(get).sort(ascending);
+	$: data_sorted = data.map(getValue).sort(ascending);
 	$: q1 = quantile(data_sorted, 0.25);
 	$: median = quantile(data_sorted, 0.5);
 	$: q3 = quantile(data_sorted, 0.75);
@@ -21,7 +23,7 @@
 		.domain(domain)
 		.range([$scene$.left, $scene$.width + $scene$.left]);
 
-	$: center = ($scene$.top + $scene$.height) / 2;
+	$: center = $scene$.top + $scene$.height / 2;
 	$: height = $scene$.height;
 </script>
 

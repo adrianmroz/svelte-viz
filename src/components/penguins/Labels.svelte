@@ -12,7 +12,7 @@
 	}
 </script>
 
-<RowLayout {scale} let:datum let:scene {data} rowDomain={domain} getRowValue={getValue}>
+<RowLayout rowScale={scale} let:datum let:scene {data} rowDomain={domain} getRowValue={getValue}>
 	<text
 		class={`${colorClass(getValue(datum))} font-source text-xl font-semibold`}
 		x={scene.width - 15}
